@@ -10,49 +10,45 @@ const slider   = document.getElementById('slider'),
     imgContainer = document.getElementById('slider__images');
     
 let sliderSizeX = parseInt(rootStylesGet.getPropertyValue('--sizeX')),
-    sliderSizeY = parseInt(rootStylesGet.getPropertyValue('--sizeY')),
-    countImg=0;
+    sliderSizeY = parseInt(rootStylesGet.getPropertyValue('--sizeY'))
+    countImg = 0;
 console.log("->" + sliderSizeX);
 
 // Eventos --------------------------------------------------------------------------------------------------------
 eventListeners();
 function eventListeners(){
-    // addEventListener('DOMContentLoaded', initialValues)
+    // addEventListener('DOMContentLoaded', resizeSlider)
     addEventListener('DOMContentLoaded', loadImages(imgContainer))
-    // addEventListener('resize', resizeSlider)
+    addEventListener('resize', resizeSlider)
+
     slider.addEventListener('click', (e) => {
-        // console.log(e.target.id);
-        if (e.target.id === 'arrow-next' || e.target.id === 'arrow-prev') moveSlider(e.target.id, imgContainer);
+        if (e.target.id === 'arrow-next' || e.target.id === 'arrow-prev') 
+            moveSlider(e.target.id, imgContainer);
     })
 
 }
 
 // Funciones ------------------------------------------------------------------------------------------------------
 const bp = matchMedia(`(max-width: ${sliderSizeX}px)`)
-// const bp = matchMedia(`(min-width: 600px})`)
-
 bp.addListener(changeSize) 
+changeSize(bp)
 
 function changeSize(mql) {
-    if (mql.matches) {
-        console.log('--->');
-        const widthComp = parseInt((getComputedStyle(slider).width).slice(0, -2))
-        console.log(widthComp);
+    if (mql.matches) resizeSlider()
+}
 
+
+function resizeSlider() {
+    // current Slider width 
+    const widthComp = parseInt((getComputedStyle(slider).width).slice(0, -2))
+
+    if (widthComp <= sliderSizeX) {
         const cantX = (sliderSizeX - widthComp) * (sliderSizeY / sliderSizeX);
         rootStyles.setProperty('--sizeY', `${Math.ceil(sliderSizeY -  cantX)}px`)
-        // rootStyles.setProperty('--sizeY', `${56.25}%`)
-
     } else {
-        // rootStyles.setProperty('--sizeX', `${100}%`)
-        // rootStyles.setProperty('--sizeY', `${100}%`)
         rootStyles.setProperty('--sizeY', `${sliderSizeY}px`)
     }
 }
-console.log(bp);
-
-changeSize(bp)
-
 
 
 function loadImages(imgContainer) {
@@ -61,19 +57,20 @@ function loadImages(imgContainer) {
 }
 
 function moveSlider(id, imgContainer) {
-    nImages = imgContainer.children.length;
-    // console.log(nImages);
+    const nImages = imgContainer.children.length;
+
     if (id === 'arrow-next') {
         countImg--;
         if (countImg === -nImages) {
             countImg = 0;
         }
-        // console.log("entra1: " + countImg);
+        
         rootStyles.setProperty('--move', `${countImg * 100}%`);
+        
     } else if (id === 'arrow-prev') {
         if (countImg === 0) countImg -= nImages - 1;
         else countImg++;
-        // console.log("entra2: " + countImg);
+        
         rootStyles.setProperty('--move', `${countImg * 100}%`);
     }
 }
