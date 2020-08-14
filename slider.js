@@ -17,9 +17,9 @@ console.log("->" + sliderSizeX);
 // Eventos --------------------------------------------------------------------------------------------------------
 eventListeners();
 function eventListeners(){
-    addEventListener('DOMContentLoaded', initialValues)
+    // addEventListener('DOMContentLoaded', initialValues)
     addEventListener('DOMContentLoaded', loadImages(imgContainer))
-    addEventListener('resize', resizeSlider)
+    // addEventListener('resize', resizeSlider)
     slider.addEventListener('click', (e) => {
         // console.log(e.target.id);
         if (e.target.id === 'arrow-next' || e.target.id === 'arrow-prev') moveSlider(e.target.id, imgContainer);
@@ -28,39 +28,32 @@ function eventListeners(){
 }
 
 // Funciones ------------------------------------------------------------------------------------------------------
-function initialValues() {
-    // cantX = (sliderSizeX - window.innerWidth) * (sliderSizeY / sliderSizeX);
-    // cantX =  (sliderSizeY / sliderSizeX);
-    // console.log(cantX);
-    // console.log(window.innerWidth);
-    cantX = (sliderSizeX - window.innerWidth) * (sliderSizeY / sliderSizeX);
-       
-    if (window.innerWidth <= sliderSizeX) {
-        rootStyles.setProperty('--sizeY', `${Math.ceil(sliderSizeY -  cantX)}px`)
-        rootStyles.setProperty('--sizeX', `${window.innerWidth}px`)
+const bp = matchMedia(`(max-width: ${sliderSizeX}px)`)
+// const bp = matchMedia(`(min-width: 600px})`)
 
-    }
-    // rootStyles.setProperty('--sizeY', `${sliderSizeY}px`);
-    // rootStyles.setProperty('--sizeX', `${sliderSizeX}px`);
-}
-        
-function resizeSlider() {
-    let cantX, cantY;
-    if (window.innerWidth <= sliderSizeX) {
-        cantX = (sliderSizeX - window.innerWidth) * (sliderSizeY / sliderSizeX);
-        rootStyles.setProperty('--sizeY', `${Math.ceil(sliderSizeY -  cantX)}px`)
-        console.log("cantX: " + cantX);
-        console.log(Math.ceil(sliderSizeY -  cantX));
+bp.addListener(changeSize) 
 
-    }else {
-        // rootStyles.setProperty('--sizeX', `${sliderSizeX}px`)
-        // rootStyles.setProperty('--sizeY', `${sliderSizeY}px`)
-        rootStyles.setProperty('--sizeX', `${100}%`)
+function changeSize(mql) {
+    if (mql.matches) {
+        console.log('--->');
+        const widthComp = parseInt((getComputedStyle(slider).width).slice(0, -2))
+        console.log(widthComp);
+
+        const cantX = (sliderSizeX - widthComp) * (sliderSizeY / sliderSizeX);
+        rootStyles.setProperty('--sizeY', `${Math.ceil(sliderSizeY -  cantX)}px`)
+        // rootStyles.setProperty('--sizeY', `${56.25}%`)
+
+    } else {
+        // rootStyles.setProperty('--sizeX', `${100}%`)
+        // rootStyles.setProperty('--sizeY', `${100}%`)
         rootStyles.setProperty('--sizeY', `${sliderSizeY}px`)
     }
-
-    console.log(window.innerWidth);
 }
+console.log(bp);
+
+changeSize(bp)
+
+
 
 function loadImages(imgContainer) {
     nImages = [...imgContainer.children]
@@ -69,18 +62,18 @@ function loadImages(imgContainer) {
 
 function moveSlider(id, imgContainer) {
     nImages = imgContainer.children.length;
-    console.log(nImages);
+    // console.log(nImages);
     if (id === 'arrow-next') {
         countImg--;
         if (countImg === -nImages) {
             countImg = 0;
         }
-        console.log("entra1: " + countImg);
+        // console.log("entra1: " + countImg);
         rootStyles.setProperty('--move', `${countImg * 100}%`);
     } else if (id === 'arrow-prev') {
         if (countImg === 0) countImg -= nImages - 1;
         else countImg++;
-        console.log("entra2: " + countImg);
+        // console.log("entra2: " + countImg);
         rootStyles.setProperty('--move', `${countImg * 100}%`);
     }
 }

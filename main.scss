@@ -43,7 +43,7 @@ body {
     );
 }
 img {
-    width: 100%;
+    max-width: 100%;
     // height: 100%;
 
     object-fit: cover;
@@ -56,14 +56,14 @@ img {
 }
 // ---------
 .container {
-    width: 1300px;
+    width: 1200px;
     height: 100vh;
 }
 .slider{
 
     @extend %flex-centrado;
     overflow: hidden;
-    width: $sizeX;
+    width: 100%;
     height: $sizeY;
     position: relative;
     border: 1px solid $dark;
