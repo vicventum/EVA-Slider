@@ -1,0 +1,125 @@
+:root {
+    --EVA-00: #e6770b;
+    --EVA-01: #814ebb;
+    --EVA-02: #ee3e22;
+    --light: #ebebeb;
+    --dark: #222222;
+
+    --sizeX: 1200px;
+    --sizeY: 675px;
+
+    --move: 0;
+
+}
+$EVA-00: var(--EVA-00);
+$EVA-01: var(--EVA-01);
+$EVA-02: var(--EVA-02);
+$light: var(--light);
+$dark: var(--dark);
+$sizeX: var(--sizeX);
+$sizeY: var(--sizeY);
+$move: var(--move);
+// Reset
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
+}
+body {
+    @extend %flex-centrado;
+    width: 100vw;
+    height: 100vh;
+    background:linear-gradient(
+        to top right,
+        $EVA-01 0%,
+        $EVA-02 100%,
+        
+    );
+}
+img {
+    width: 100%;
+    // height: 100%;
+
+    object-fit: cover;
+}
+// ---------
+%flex-centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+// ---------
+.container {
+    width: 1300px;
+    height: 100vh;
+}
+.slider{
+
+    @extend %flex-centrado;
+    overflow: hidden;
+    width: $sizeX;
+    height: $sizeY;
+    position: relative;
+    border: 1px solid $dark;
+
+    display: flex;
+    justify-content: space-between;
+
+        // z-index: 100;
+     &__arrow {
+        // position: relative;
+        width: 9%;
+        height: 100%;
+        // border: 1px solid $light;
+        font-size: 3vw;
+        color: $light;
+        
+
+        @extend %flex-centrado;
+        cursor: pointer;
+        z-index: 1000;
+
+        transition: background 1s ease;
+        &-prev:hover {
+                // background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, transparent 100%);
+                background: rgba(0, 0, 0, 0.2);
+        }
+        &-next:hover { // background-image: linear-gradient(to left, rgba(0,0,0,.5) 0, transparent 100%);
+                background: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &__images {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 1s ease;
+        transform: translate($move);
+        div {
+            width: inherit;
+            height: inherit;
+            flex-shrink: 0;
+            background-position: center;
+            background-size: cover;
+
+        }
+        // div:first-child {
+        //     background-image: url(../img/0.0.jpg);
+            
+        // }
+        // div:nth-child(2) {
+        //     background-image: url(../img/1.1.jpg);
+        //     background-image: url("../img/0.0.jpg")
+        // }
+        // div:nth-child(3) {
+        //     background-image: url(../img/2.2.jpg);
+        // }
+        // transform: translate(1px);
+    }
+}

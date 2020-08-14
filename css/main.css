@@ -1,0 +1,90 @@
+:root {
+  --EVA-00: #e6770b;
+  --EVA-01: #814ebb;
+  --EVA-02: #ee3e22;
+  --light: #ebebeb;
+  --dark: #222222;
+  --sizeX: 1200px;
+  --sizeY: 675px;
+  --move: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to top right, var(--EVA-01) 0%, var(--EVA-02) 100%);
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+}
+
+body, .slider, .slider__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 1300px;
+  height: 100vh;
+}
+
+.slider {
+  overflow: hidden;
+  width: var(--sizeX);
+  height: var(--sizeY);
+  position: relative;
+  border: 1px solid var(--dark);
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider__arrow {
+  width: 9%;
+  height: 100%;
+  font-size: 3vw;
+  color: var(--light);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 1s ease;
+}
+
+.slider__arrow-prev:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.slider__arrow-next:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.slider__images {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform 1s ease;
+  transform: translate(var(--move));
+}
+
+.slider__images div {
+  width: inherit;
+  height: inherit;
+  flex-shrink: 0;
+  background-position: center;
+  background-size: cover;
+}
+/*# sourceMappingURL=main.css.map */
