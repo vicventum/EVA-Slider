@@ -2,6 +2,9 @@
   --EVA-00: #e6770b;
   --EVA-01: #814ebb;
   --EVA-02: #ee3e22;
+  --EVA-00-dark: rgb(124, 72, 20);
+  --EVA-01-dark: #814ebb;
+  --EVA-02-dark: #ee3e22;
   --light: #ebebeb;
   --dark: #222222;
   --sizeX: 1200px;
@@ -11,6 +14,11 @@
 
 html {
   box-sizing: border-box;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #160325 50%, #380606 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 *,
@@ -21,19 +29,11 @@ html {
   margin: 0;
 }
 
-body, .slider__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 body {
   width: 100vw;
-  height: 100%;
-  background: linear-gradient(to top right, var(--EVA-01) 0%, var(--EVA-02) 100%);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
 }
 
 img {
@@ -41,18 +41,39 @@ img {
   object-fit: cover;
 }
 
+h1 {
+  padding: 1rem;
+  font-size: 2.2rem;
+  display: inline-block;
+  --borders: 1px solid white;
+  border-top: var(--borders);
+  border-bottom: var(--borders);
+}
+
 p {
-  padding: 2rem;
+  padding: 1rem;
   font-size: 1.5rem;
+}
+
+a {
+  color: var(--EVA-00);
+  text-decoration: none;
 }
 
 .container {
   width: 1000px;
 }
 
+html, body, .slider__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .slider {
   width: 100%;
   height: var(--sizeY);
+  margin: 1rem auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,19 +86,15 @@ p {
   height: 100%;
   font-size: 3vw;
   color: var(--light);
-  opacity: .5;
+  opacity: .4;
   cursor: pointer;
   z-index: 1000;
-  transition: background 1s ease, opacity 1s ease;
+  transition: background .5s ease, opacity .5s ease;
 }
 
 .slider__arrow-prev:hover, .slider__arrow-next:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.05);
   opacity: initial;
-}
-
-.slider__arrow-next:hover {
-  background: rgba(0, 0, 0, 0.2);
 }
 
 .slider__images {
@@ -85,7 +102,7 @@ p {
   width: 100%;
   height: 100%;
   display: flex;
-  transition: transform 1s ease;
+  transition: transform 1s ease-in-out;
   transform: translate(var(--move));
 }
 

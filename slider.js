@@ -17,13 +17,14 @@ const slider = document.getElementById('slider'),
     imgContainer = document.getElementById('slider__images');
 
 let sliderSizeX = parseInt(rootStylesGet.getPropertyValue('--sizeX')),
-    sliderSizeY = parseInt(rootStylesGet.getPropertyValue('--sizeY'))
-countImg = 0;
+    sliderSizeY = parseInt(rootStylesGet.getPropertyValue('--sizeY')),
+    countImg = 0;
 console.log("->" + sliderSizeX);
 
 // Events --------------------------------------------------------------------------------------------------------
 
 addEventListener('DOMContentLoaded', loadImages(imgContainer))
+addEventListener('DOMContentLoaded', posInitialImage(1))
 addEventListener('DOMContentLoaded', resizeSlider)
 addEventListener('resize', resizeSlider)
 
@@ -42,7 +43,10 @@ slider.addEventListener('click', (e) => {
 // function changeSize(mql) {
 //     if (mql.matches) resizeSlider()
 // }
-
+function posInitialImage(pos) {
+    countImg -= pos
+    rootStyles.setProperty('--move', `${countImg * 100}%`);
+}
 
 function resizeSlider() {
     // current Slider width 
@@ -63,6 +67,7 @@ function loadImages(imgContainer) {
     nImages = [...imgContainer.children]
     nImages.forEach(l => l.style.backgroundImage = `url(${l.dataset.img})`)
 }
+
 
 function moveSlider(id, imgContainer) {
     const nImages = imgContainer.children.length;

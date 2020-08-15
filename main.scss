@@ -2,6 +2,9 @@
     --EVA-00: #e6770b;
     --EVA-01: #814ebb;
     --EVA-02: #ee3e22;
+    --EVA-00-dark: rgb(124, 72, 20);
+    --EVA-01-dark: #814ebb;
+    --EVA-02-dark: #ee3e22;
     --light: #ebebeb;
     --dark: #222222;
 
@@ -22,6 +25,18 @@ $move: var(--move);
 // Reset
 html {
     box-sizing: border-box;
+
+    height: 100vh;
+    @extend %flex-center;
+    background:linear-gradient(
+        to bottom right,
+        rgb(22, 3, 37) 50%,
+        rgb(56, 6, 6) 100%,
+        
+    );
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 *,
@@ -32,25 +47,19 @@ html {
     margin: 0;
 }
 // ---------
-%flex-centrado {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 body {
-    @extend %flex-centrado;
+    @extend %flex-center;
     width: 100vw;
-    height: 100%;
-    background:linear-gradient(
-        to top right,
-        $EVA-01 0%,
-        $EVA-02 100%,
-        
-    );
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    // height: 100vh;
+
+    color: white;
+    text-align: center;
+
+    
+
+    overflow-x: hidden;
 }
 img {
     max-width: 100%;
@@ -58,22 +67,39 @@ img {
     
     object-fit: cover;
 }
+h1 {
+    padding: 1rem;
+    font-size: 2.2rem;
+    display: inline-block;
 
+    --borders: 1px solid white;
+    border-top: var(--borders);
+    border-bottom: var(--borders);
+}
 p {
-    padding: 2rem;
+    padding: 1rem;
     font-size: 1.5rem;
 }
-
+a {
+    color: $EVA-00;
+    text-decoration: none;
+}
 .container {
     width: 1000px; 
-    // height: 100vh
+    // height: 100%;
 }
 
 // =====================================================================
+%flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .slider{
     
     width: 100%;
     height: var(--sizeY);
+    margin: 1rem auto;
 
     display: flex;
     align-items: center;
@@ -90,22 +116,19 @@ p {
         // border: 1px solid $light;
         font-size: 3vw;
         color: $light;
-        opacity: .5;
+        opacity: .4;
         
 
-        @extend %flex-centrado;
+        @extend %flex-center;
         cursor: pointer;
         z-index: 1000;
 
-        transition: background 1s ease, opacity 1s ease;
+        transition: background .5s ease, opacity .5s ease;
+
         &-prev:hover,
         &-next:hover  {
-                // background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, transparent 100%);
-                background: rgba(0, 0, 0, 0.2);
+                background: rgba(255, 255, 255, 0.05);
                 opacity: initial;
-        }
-        &-next:hover { // background-image: linear-gradient(to left, rgba(0,0,0,.5) 0, transparent 100%);
-                background: rgba(0, 0, 0, 0.2);
         }
     }
     &__images {
@@ -113,8 +136,8 @@ p {
         width: 100%;
         height: 100%;
         display: flex;
-        
-        transition: transform 1s ease;
+
+        transition: transform 1s ease-in-out;
         transform: translate($move);
         div {
             width: inherit;
@@ -124,17 +147,5 @@ p {
             background-size: cover;
 
         }
-        // div:first-child {
-        //     background-image: url(../img/0.0.jpg);
-            
-        // }
-        // div:nth-child(2) {
-        //     background-image: url(../img/1.1.jpg);
-        //     background-image: url("../img/0.0.jpg")
-        // }
-        // div:nth-child(3) {
-        //     background-image: url(../img/2.2.jpg);
-        // }
-        // transform: translate(1px);
     }
 }
