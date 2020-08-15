@@ -5,7 +5,7 @@
   --light: #ebebeb;
   --dark: #222222;
   --sizeX: 1200px;
-  --sizeY: 675px;
+  --sizeY: 100%;
   --move: 0;
 }
 
@@ -21,10 +21,19 @@ html {
   margin: 0;
 }
 
+body, .slider__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 body {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: linear-gradient(to top right, var(--EVA-01) 0%, var(--EVA-02) 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 img {
@@ -32,25 +41,23 @@ img {
   object-fit: cover;
 }
 
-body, .slider, .slider__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+p {
+  padding: 2rem;
+  font-size: 1.5rem;
 }
 
 .container {
-  width: 1200px;
-  height: 100vh;
+  width: 1000px;
 }
 
 .slider {
-  overflow: hidden;
   width: 100%;
   height: var(--sizeY);
-  position: relative;
-  border: 1px solid var(--dark);
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 }
 
 .slider__arrow {
@@ -58,13 +65,15 @@ body, .slider, .slider__arrow {
   height: 100%;
   font-size: 3vw;
   color: var(--light);
+  opacity: .5;
   cursor: pointer;
   z-index: 1000;
-  transition: background 1s ease;
+  transition: background 1s ease, opacity 1s ease;
 }
 
-.slider__arrow-prev:hover {
+.slider__arrow-prev:hover, .slider__arrow-next:hover {
   background: rgba(0, 0, 0, 0.2);
+  opacity: initial;
 }
 
 .slider__arrow-next:hover {

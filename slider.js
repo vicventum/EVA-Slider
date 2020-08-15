@@ -2,52 +2,60 @@
  * Algoritmo:
  *  - Dentro del evento resize detectar si el ancho del slider cambia para asi cambiar los valores en las variables CSS
  */
-// Se calcula dividiendo el largo entre la altura de la imagen visible en pantalla
+// Relacion de Aspecto: 
+/* 
+    La relación de aspecto es la proporción entre la altura y la anchura. Por ejemplo, 3:2 es una de las proporciones más comunes de la fotografía. Si dividimos 3 entre 2 nos da 1,5. Quiere decir que si multiplicamos el lado menor por 1,5 nos saldrá la medida del lado mayor para seguir con la misma proporción. así descubrimos que 10x15 sigue esta relación de aspecto. Y aquí es donde comienzan los problemas para muchos de nosotros.
+*/
+
 // Variables ------------------------------------------------------------------------------------------------------
-const slider   = document.getElementById('slider'),
+const proportionX = 16,
+    proportionY = 9
+
+const slider = document.getElementById('slider'),
     rootStyles = document.documentElement.style,
     rootStylesGet = window.getComputedStyle(document.documentElement),
     imgContainer = document.getElementById('slider__images');
-    
+
 let sliderSizeX = parseInt(rootStylesGet.getPropertyValue('--sizeX')),
     sliderSizeY = parseInt(rootStylesGet.getPropertyValue('--sizeY'))
-    countImg = 0;
+countImg = 0;
 console.log("->" + sliderSizeX);
 
-// Eventos --------------------------------------------------------------------------------------------------------
-eventListeners();
-function eventListeners(){
-    // addEventListener('DOMContentLoaded', resizeSlider)
-    addEventListener('DOMContentLoaded', loadImages(imgContainer))
-    addEventListener('resize', resizeSlider)
+// Events --------------------------------------------------------------------------------------------------------
 
-    slider.addEventListener('click', (e) => {
-        if (e.target.id === 'arrow-next' || e.target.id === 'arrow-prev') 
-            moveSlider(e.target.id, imgContainer);
-    })
+addEventListener('DOMContentLoaded', loadImages(imgContainer))
+addEventListener('DOMContentLoaded', resizeSlider)
+addEventListener('resize', resizeSlider)
 
-}
+slider.addEventListener('click', (e) => {
+    if (e.target.id === 'arrow-next' || e.target.id === 'arrow-prev')
+        moveSlider(e.target.id, imgContainer);
+})
 
-// Funciones ------------------------------------------------------------------------------------------------------
-const bp = matchMedia(`(max-width: ${sliderSizeX}px)`)
-bp.addListener(changeSize) 
-changeSize(bp)
 
-function changeSize(mql) {
-    if (mql.matches) resizeSlider()
-}
+
+// Functions ------------------------------------------------------------------------------------------------------
+// const bp = matchMedia(`(max-width: ${sliderSizeX}px)`)
+// bp.addListener(changeSize)
+// changeSize(bp)
+
+// function changeSize(mql) {
+//     if (mql.matches) resizeSlider()
+// }
 
 
 function resizeSlider() {
     // current Slider width 
-    const widthComp = parseInt((getComputedStyle(slider).width).slice(0, -2))
+    const widthComputed = parseInt((getComputedStyle(slider).width).slice(0, -2))
+    
+    // const cantX = (sliderSizeX - widthComputed) * (sliderSizeY / sliderSizeX);
+    // const cantX = (sliderSizeX - widthComputed) * (9 / 16);
+    // const cantX = (widthComputed) * (sliderSizeY / sliderSizeX);
+    // const cantX = (widthComputed) * (900 / 900);
 
-    if (widthComp <= sliderSizeX) {
-        const cantX = (sliderSizeX - widthComp) * (sliderSizeY / sliderSizeX);
-        rootStyles.setProperty('--sizeY', `${Math.ceil(sliderSizeY -  cantX)}px`)
-    } else {
-        rootStyles.setProperty('--sizeY', `${sliderSizeY}px`)
-    }
+    const widthContainer = parseInt(getComputedStyle(slider).width.slice(0, -2))
+    const cantX = (widthComputed) * (proportionY / proportionX);
+    rootStyles.setProperty('--sizeY', `${cantX}px`)
 }
 
 
@@ -64,13 +72,13 @@ function moveSlider(id, imgContainer) {
         if (countImg === -nImages) {
             countImg = 0;
         }
-        
+
         rootStyles.setProperty('--move', `${countImg * 100}%`);
-        
+
     } else if (id === 'arrow-prev') {
         if (countImg === 0) countImg -= nImages - 1;
         else countImg++;
-        
+
         rootStyles.setProperty('--move', `${countImg * 100}%`);
     }
 }

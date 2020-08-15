@@ -6,7 +6,7 @@
     --dark: #222222;
 
     --sizeX: 1200px;
-    --sizeY: 675px;
+    --sizeY: 100%;
 
     --move: 0;
 
@@ -31,46 +31,57 @@ html {
     padding: 0;
     margin: 0;
 }
-body {
-    @extend %flex-centrado;
-    width: 100vw;
-    height: 100vh;
-    background:linear-gradient(
-        to top right,
-        $EVA-01 0%,
-        $EVA-02 100%,
-        
-    );
-}
-img {
-    max-width: 100%;
-    // height: 100%;
-
-    object-fit: cover;
-}
 // ---------
 %flex-centrado {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-// ---------
-.container {
-    width: 1200px;
-    height: 100vh;
-}
-.slider{
 
+body {
     @extend %flex-centrado;
-    overflow: hidden;
+    width: 100vw;
+    height: 100%;
+    background:linear-gradient(
+        to top right,
+        $EVA-01 0%,
+        $EVA-02 100%,
+        
+    );
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+img {
+    max-width: 100%;
+    // height: 100%;
+    
+    object-fit: cover;
+}
+
+p {
+    padding: 2rem;
+    font-size: 1.5rem;
+}
+
+.container {
+    width: 1000px; 
+    // height: 100vh
+}
+
+// =====================================================================
+.slider{
+    
     width: 100%;
-    height: $sizeY;
-    position: relative;
-    border: 1px solid $dark;
+    height: var(--sizeY);
 
     display: flex;
+    align-items: center;
     justify-content: space-between;
-
+    
+    position: relative;
+    overflow: hidden;
+    
         // z-index: 100;
      &__arrow {
         // position: relative;
@@ -79,16 +90,19 @@ img {
         // border: 1px solid $light;
         font-size: 3vw;
         color: $light;
+        opacity: .5;
         
 
         @extend %flex-centrado;
         cursor: pointer;
         z-index: 1000;
 
-        transition: background 1s ease;
-        &-prev:hover {
+        transition: background 1s ease, opacity 1s ease;
+        &-prev:hover,
+        &-next:hover  {
                 // background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, transparent 100%);
                 background: rgba(0, 0, 0, 0.2);
+                opacity: initial;
         }
         &-next:hover { // background-image: linear-gradient(to left, rgba(0,0,0,.5) 0, transparent 100%);
                 background: rgba(0, 0, 0, 0.2);
@@ -99,6 +113,7 @@ img {
         width: 100%;
         height: 100%;
         display: flex;
+        
         transition: transform 1s ease;
         transform: translate($move);
         div {
