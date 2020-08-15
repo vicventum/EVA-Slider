@@ -1,3 +1,4 @@
+// Styles for demo
 :root {
     --EVA-00: #e6770b;
     --EVA-01: #814ebb;
@@ -48,7 +49,6 @@ html {
 }
 // ---------
 
-
 body {
     @extend %flex-center;
     width: 100vw;
@@ -72,7 +72,7 @@ h1 {
     font-size: 2.2rem;
     display: inline-block;
 
-    --borders: 1px solid white;
+    --borders: 1px solid var(--EVA-01);
     border-top: var(--borders);
     border-bottom: var(--borders);
 }
@@ -81,7 +81,7 @@ p {
     font-size: 1.5rem;
 }
 a {
-    color: $EVA-00;
+    color: var(--EVA-00);
     text-decoration: none;
 }
 .container {
@@ -89,6 +89,7 @@ a {
     // height: 100%;
 }
 
+// Styles for Slider
 // =====================================================================
 %flex-center {
     display: flex;
@@ -108,12 +109,9 @@ a {
     position: relative;
     overflow: hidden;
     
-        // z-index: 100;
      &__arrow {
-        // position: relative;
         width: 9%;
         height: 100%;
-        // border: 1px solid $light;
         font-size: 3vw;
         color: $light;
         opacity: .4;
@@ -139,6 +137,7 @@ a {
 
         transition: transform 1s ease-in-out;
         transform: translate($move);
+        
         div {
             width: inherit;
             height: inherit;
