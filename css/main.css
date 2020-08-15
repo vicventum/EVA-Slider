@@ -45,7 +45,7 @@ h1 {
   padding: 1rem;
   font-size: 2.2rem;
   display: inline-block;
-  --borders: 1px solid white;
+  --borders: 1px solid var(--EVA-01);
   border-top: var(--borders);
   border-bottom: var(--borders);
 }
